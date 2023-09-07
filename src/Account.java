@@ -1,6 +1,7 @@
 import java.util.Date;
 
 public class Account implements Comparable{
+    //confirm why gender is required in this account
 
     //Attributes
     static int nextAccountNumber = 10;
