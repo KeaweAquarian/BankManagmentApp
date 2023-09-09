@@ -53,4 +53,23 @@ public class Account implements Comparable{
     public int compareTo(Object o) {
         return this.owner.compareTo(((Account) o) .owner);
     }
+
+    public void deposit(double amount){
+        if (amount > 0){
+            setBalance(balance + amount);
+        }
+    }
+
+    public double withdraw(double amount){
+        if (amount > 0){
+            if(amount < balance){
+                setBalance(balance - amount);
+            }
+            else {
+                setBalance(0.0);
+            }
+            return balance;
+        }
+        return 0.0;
+    }
 }
