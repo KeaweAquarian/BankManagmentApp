@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.TreeSet;
 import java.util.Set;
@@ -21,7 +22,7 @@ public class AccountFrame extends JFrame {
     boolean newRec = true;
 
     //ComboBoxData
-    DefaultComboBoxModel<City> cityDefaultComboBoxModel;
+    DefaultComboBoxModel<City> citiesCMBMDL;
     DefaultListModel<Account> accountDefaultListModel;
 
     //Table Data
@@ -35,6 +36,37 @@ public class AccountFrame extends JFrame {
         setSize(600, 400);
 
         accnNoLBL = new JLabel("Account No.");
+        ownerLBL = new JLabel("Owner");
+        balanceLBL = new JLabel("Balance");
+        cityLBL = new JLabel("City");
+        genderLBL = new JLabel("Gender");
+        amountLBL = new JLabel("Amount");
+
+        // TextFields
+        accNoTXT = new JTextField(); accNoTXT.setEnabled(false);
+        ownerTXT = new JTextField();
+        balanceTXT = new JTextField(); balanceTXT.setEnabled(false);
+        amountTXT = new JTextField();
+        amountTXT.setPreferredSize(new Dimension(150, 25));
+
+        //ComboBox
+        citiesCMBMDL = new DefaultComboBoxModel<City>();
+        citiesCMBMDL.addElement(null);
+        citiesCMBMDL.addElement(new City("Brooklen", "New York"));
+        citiesCMBMDL.addElement(new City("Dothan", "Alabama"));
+        citiesCMBMDL.addElement(new City("Panama", "Florida"));
+        citiesCMBMDL.addElement(new City("Miami", "Florida"));
+
+        //Adding data to JComboBOx
+        citiesCMB = new JComboBox<City>(citiesCMBMDL);
+
+        //Radio Button
+        maleRDB = new JRadioButton("Male", true);
+        femaleRDB = new JRadioButton("Female");
+        genderBTNGRP.add(maleRDB);
+        genderBTNGRP.add(femaleRDB);
+
+
     }
 
     public static void main(String[] args) {
