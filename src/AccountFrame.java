@@ -63,6 +63,7 @@ public class AccountFrame extends JFrame {
         //Radio Button
         maleRDB = new JRadioButton("Male", true);
         femaleRDB = new JRadioButton("Female");
+        genderBTNGRP = new ButtonGroup();
         genderBTNGRP.add(maleRDB);
         genderBTNGRP.add(femaleRDB);
 
@@ -73,6 +74,63 @@ public class AccountFrame extends JFrame {
         quitBTn = new JButton("Quit");
         depositBtn = new JButton("Deposit");
         withdrawBTN = new JButton("WithDraw");
+
+        //Table
+        accountDefaultListModel = new DefaultListModel<>();
+        accountJList = new JList<>(accountDefaultListModel);
+
+        //Panels
+        p1 = new JPanel(); p1.setBounds(5,5,300,150);
+        p1.setLayout(new GridLayout(5,2));
+
+        p2 = new JPanel(); p2.setBounds(5,155,300,40);
+        p2.setLayout(new FlowLayout());
+
+        p3 = new JPanel(); p3.setBounds(5,195,600,40);
+        p3.setLayout(new FlowLayout());
+
+        p4 = new JPanel(); p4.setBounds(305,5,300,190);
+        p4.setLayout(new BorderLayout());
+
+        p5 = new JPanel(); p5.setBounds(5,240,580,120);
+        p5.setLayout(new BorderLayout());
+
+
+
+        //Adding componets to panel
+        p1.add(accnNoLBL);
+        p1.add(accNoTXT);
+        p1.add(ownerLBL);
+        p1.add(ownerTXT);
+        p1.add(balanceLBL);
+        p1.add(balanceTXT);
+        p1.add(cityLBL);
+        p1.add(citiesCMB);
+        p1.add(maleRDB);
+        p1.add(femaleRDB);
+
+        p2.add(newBTN);
+        p2.add(saveBTN);
+        p2.add(showBTN);
+        p2.add(quitBTn);
+
+        p3.add(amountLBL);
+        p3.add(accNoTXT);
+        p3.add(depositBtn);
+        p3.add(withdrawBTN);
+
+        p4.add(accountJList);
+
+
+
+        //Adding panels to frame
+        add(p1);
+        add(p2);
+        add(p3);
+        add(p4);
+        add(p5);
+
+
 
 
 
