@@ -1,6 +1,9 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.TreeSet;
 import java.util.Set;
@@ -130,6 +133,59 @@ public class AccountFrame extends JFrame {
         add(p4);
         add(p5);
 
+        //Table Creation
+        tableModel = new DefaultTableModel();
+        table = new JTable(tableModel);
+        tableModel.addColumn("TrsNO");
+        tableModel.addColumn("TrsDate");
+        tableModel.addColumn("TrsType");
+        tableModel.addColumn("TrsAmount");
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        p5.add(scrollPane);
+
+        //Functionality
+        newBTN.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                accNoTXT.setText("");
+                ownerLBL.setText("");
+                citiesCMB.setSelectedIndex(0);
+                maleRDB.setSelected(true);
+                balanceTXT.setText("");
+                amountTXT.setText("");
+                newRec = true;
+            }
+        });
+
+        saveBTN.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(newRec){
+                    if (ownerTXT.getText().length() !=0){
+                        acc = new Account(
+                                ownerTXT.getText(), (City) citiesCMB.getSelectedItem(),
+                                maleRDB.isSelected() ? 'M' : 'F');
+                        accNoTXT.setText(String.valueOf(acc.accountNumber));
+                        accountSet.add(acc);
+                        accountDefaultListModel.addElement(acc);
+                        newRec = false;
+                    }else {
+                        JOptionPane.showMessageDialog(null,"Fill All fields Before Saving");
+                    }
+                }else {
+                    accountSet.remove(acc);
+
+                    int a = Integer.parseInt(accNoTXT.getText());
+                    String o = ownerTXT.getText();
+                    City c = (City) citiesCMB.getSelectedItem();
+
+                    char f = maleRDB.isSelected()? 'M':'F';
+                    double b = Double.parseDouble(balanceTXT.getText());
+                    acc = new Account(a, o, c, g, b);
+                }
+            }
+        });
 
 
 
