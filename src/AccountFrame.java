@@ -1,9 +1,12 @@
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.TreeSet;
 import java.util.Set;
@@ -190,6 +193,72 @@ public class AccountFrame extends JFrame {
                     accountDefaultListModel.setElementAt(acc,accountJList.getSelectedIndex());
                     newRec = false;
                 }
+            }
+        });
+
+        showBTN.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String s = "";
+
+
+            }
+        });
+
+        depositBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!newRec && amountTXT.getText().length() != 0){
+
+                    //Add Transactions to table
+                    Transactions t = new Transactions(acc, LocalDate.now(),
+                            'D', Double.parseDouble(amountTXT.getText()));
+                    //Perform deposit from account
+                    acc.deposit(Double.parseDouble(amountTXT.getText()));
+                    balanceTXT.setText(String.valueOf(acc.balance));
+                }
+            }
+        });
+
+        withdrawBTN.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!newRec && amountTXT.getText().length() !=0){
+
+                    //Adding Transaction to table
+                    Transactions t = new Transactions(
+                            acc, LocalDate.now(),
+                            'W',
+                            Double.parseDouble(amountTXT.getText()));
+                    DisplayTransactionInTable(t);
+
+                    //Perform withdraw on account
+                    acc.withdraw(Double.parseDouble(amountTXT.getText()));
+                    balanceTXT.setText(String.valueOf(acc.balance));
+
+                }
+            }
+        });
+
+        accountJList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                acc = x = accountJList.getSelectedValue();
+
+                accNoTXT.setText(String.valueOf(acc.accountNumber));
+                ownerTXT.setText(acc.owner);
+                citiesCMBMDL.setSelectedItem(acc.city);
+
+                if (acc.gender == 'M') maleRDB.setSelected(true);
+                else femaleRDB.setSelected(true);
+
+                balanceTXT.setText(String.valueOf(acc.balance));
+                amountTXT.setEnabled(true);
+                depositBtn.setEnabled(true);
+                newRec = false;
+
+                //Clear table
+                for (int i = tableModel.getRowCount() -1)
             }
         });
 

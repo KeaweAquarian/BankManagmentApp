@@ -11,7 +11,7 @@ public class Transactions implements Comparable<Transactions>, Serializable {
     char operation;
     double amount;
 
-    public Transactions(int trsNo, Account acc, LocalDate date, char operation, double amount) {
+    public Transactions( Account acc, LocalDate date, char operation, double amount) {
         this.trsNo = next++;
         this.acc = acc;
         this.date = date;
