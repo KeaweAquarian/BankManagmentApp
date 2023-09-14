@@ -162,6 +162,7 @@ public class AccountFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(newRec){
+                    //Insertion
                     if (ownerTXT.getText().length() !=0){
                         acc = new Account(
                                 ownerTXT.getText(), (City) citiesCMB.getSelectedItem(),
@@ -174,15 +175,20 @@ public class AccountFrame extends JFrame {
                         JOptionPane.showMessageDialog(null,"Fill All fields Before Saving");
                     }
                 }else {
+
+                    //Updating
                     accountSet.remove(acc);
 
                     int a = Integer.parseInt(accNoTXT.getText());
                     String o = ownerTXT.getText();
                     City c = (City) citiesCMB.getSelectedItem();
 
-                    char f = maleRDB.isSelected()? 'M':'F';
+                    char g = maleRDB.isSelected()? 'M':'F';
                     double b = Double.parseDouble(balanceTXT.getText());
                     acc = new Account(a, o, c, g, b);
+                    accountSet.add(acc);
+                    accountDefaultListModel.setElementAt(acc,accountJList.getSelectedIndex());
+                    newRec = false;
                 }
             }
         });
