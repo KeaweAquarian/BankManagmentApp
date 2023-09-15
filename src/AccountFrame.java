@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeSet;
 import java.util.Set;
 
@@ -152,7 +153,7 @@ public class AccountFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 accNoTXT.setText("");
-                ownerLBL.setText("");
+                ownerTXT.setText("");
                 citiesCMB.setSelectedIndex(0);
                 maleRDB.setSelected(true);
                 balanceTXT.setText("");
@@ -238,6 +239,18 @@ public class AccountFrame extends JFrame {
 
                 }
             }
+
+            private void DisplayTransactionInTable(Transactions t) {
+                //Displaying data into table
+                tableModel.addRow(new Object[]{
+                        t.getTrsNo(),
+                        t.getDate(),
+                        t.getOperation(),
+                        t.getAmount(),
+                        t.getAcc()
+
+                });
+            }
         });
 
         accountJList.addListSelectionListener(new ListSelectionListener() {
@@ -258,7 +271,36 @@ public class AccountFrame extends JFrame {
                 newRec = false;
 
                 //Clear table
-                for (int i = tableModel.getRowCount() -1)
+                for (int i = tableModel.getRowCount() -1; i>0; i--){
+                    tableModel.removeRow(i);
+                }
+
+                //Get Transactions to selected Account
+                SearchTransactionList(acc.accountNumber);
+            }
+
+            private void SearchTransactionList(int accountNumber) {
+                List<Transactions> filteredList = new ArrayList<>();
+
+                //iterate throught the list
+                for (Transactions t: transList){
+
+                    //filter values that contains trsNo
+                    if (t.getAcc().accountNumber == accountNumber){
+                        filteredList.add(t);
+                    }
+                }
+
+                //Display the filtered List
+                for (int i = 0; i < filteredList.size(); i++) {
+                    tableModel.addRow(new Object[]{
+                            filteredList.get(i).getTrsNo(),
+                            filteredList.get(i).getDate(),
+                            filteredList.get(i).getOperation(),
+                            filteredList.get(i).getAmount()
+                });
+
+                }
             }
         });
 
