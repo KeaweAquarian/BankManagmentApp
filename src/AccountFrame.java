@@ -7,13 +7,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.TreeSet;
-import java.util.Set;
 
 public class AccountFrame extends JFrame {
-    JLabel accnNoLBL, ownerLBL, balanceLBL, cityLBL, genderLBL, amountLBL;
+    JLabel  ownerLBL, accnNoLBL,balanceLBL, cityLBL, genderLBL, amountLBL;
     JTextField accNoTXT, ownerTXT, balanceTXT, amountTXT;
     JComboBox<City> citiesCMB;
 
@@ -21,7 +19,7 @@ public class AccountFrame extends JFrame {
     JRadioButton maleRDB, femaleRDB;
     ButtonGroup genderBTNGRP;
 
-    JList<Account> accountJList;
+    JList<Account> accountsLST;
     JPanel p1,p2,p3,p4,p5;
 
     Set<Account> accountSet = new TreeSet<>();
@@ -30,7 +28,7 @@ public class AccountFrame extends JFrame {
 
     //ComboBoxData
     DefaultComboBoxModel<City> citiesCMBMDL;
-    DefaultListModel<Account> accountDefaultListModel;
+    DefaultListModel<Account> accountsLSTMDL;
 
     //Table Data
     JTable table;
@@ -50,7 +48,7 @@ public class AccountFrame extends JFrame {
         amountLBL = new JLabel("Amount");
 
         // TextFields
-        accNoTXT = new JTextField(); accNoTXT.setEnabled(false);
+        accNoTXT = new JTextField();
         ownerTXT = new JTextField();
         balanceTXT = new JTextField(); balanceTXT.setEnabled(false);
         amountTXT = new JTextField();
@@ -83,8 +81,8 @@ public class AccountFrame extends JFrame {
         withdrawBTN = new JButton("WithDraw");
 
         //Table
-        accountDefaultListModel = new DefaultListModel<>();
-        accountJList = new JList<>(accountDefaultListModel);
+        accountsLSTMDL = new DefaultListModel<>();
+        accountsLST = new JList<>(accountsLSTMDL);
 
         //Panels
         p1 = new JPanel(); p1.setBounds(5,5,300,150);
@@ -105,8 +103,9 @@ public class AccountFrame extends JFrame {
 
 
         //Adding componets to panel
-        p1.add(accnNoLBL);
-        p1.add(accNoTXT);
+          p1.add(accnNoLBL);
+          p1.add(accNoTXT);
+        p1.add(ownerTXT);
         p1.add(ownerLBL);
         p1.add(ownerTXT);
         p1.add(balanceLBL);
@@ -122,11 +121,11 @@ public class AccountFrame extends JFrame {
         p2.add(quitBTn);
 
         p3.add(amountLBL);
-        p3.add(accNoTXT);
+        p3.add(amountTXT);
         p3.add(depositBtn);
         p3.add(withdrawBTN);
 
-        p4.add(accountJList);
+        p4.add(accountsLST);
 
 
 
@@ -173,7 +172,7 @@ public class AccountFrame extends JFrame {
                                 maleRDB.isSelected() ? 'M' : 'F');
                         accNoTXT.setText(String.valueOf(acc.accountNumber));
                         accountSet.add(acc);
-                        accountDefaultListModel.addElement(acc);
+                        accountsLSTMDL.addElement(acc);
                         newRec = false;
                     }else {
                         JOptionPane.showMessageDialog(null,"Fill All fields Before Saving");
@@ -191,7 +190,7 @@ public class AccountFrame extends JFrame {
                     double b = Double.parseDouble(balanceTXT.getText());
                     acc = new Account(a, o, c, g, b);
                     accountSet.add(acc);
-                    accountDefaultListModel.setElementAt(acc,accountJList.getSelectedIndex());
+                    accountsLSTMDL.setElementAt(acc,accountsLST.getSelectedIndex());
                     newRec = false;
                 }
             }
@@ -201,6 +200,12 @@ public class AccountFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String s = "";
+                Iterator<Account> it = accountSet.iterator();
+
+                while (it.hasNext()){
+                    s += it.next().toString() + "\n";
+                    JOptionPane.showMessageDialog(null,s);
+                }
 
 
             }
@@ -214,10 +219,26 @@ public class AccountFrame extends JFrame {
                     //Add Transactions to table
                     Transactions t = new Transactions(acc, LocalDate.now(),
                             'D', Double.parseDouble(amountTXT.getText()));
+                    DisplayTransactionInTable(t);
                     //Perform deposit from account
                     acc.deposit(Double.parseDouble(amountTXT.getText()));
                     balanceTXT.setText(String.valueOf(acc.balance));
                 }
+            }
+
+            private void DisplayTransactionInTable(Transactions t) {
+                //Displaying data into table
+                tableModel.addRow(new Object[]{
+                        t.getTrsNo(),
+                        t.getDate(),
+                        t.getOperation(),
+                        t.getAmount(),
+                        t.getAcc()
+
+                });
+
+                //Adding object to array list
+                transList.add(t);
             }
         });
 
@@ -250,13 +271,16 @@ public class AccountFrame extends JFrame {
                         t.getAcc()
 
                 });
+
+                //Adding object to array list
+                transList.add(t);
             }
         });
 
-        accountJList.addListSelectionListener(new ListSelectionListener() {
+        accountsLST.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                acc = x = accountJList.getSelectedValue();
+                acc = x = accountsLST.getSelectedValue();
 
                 accNoTXT.setText(String.valueOf(acc.accountNumber));
                 ownerTXT.setText(acc.owner);
