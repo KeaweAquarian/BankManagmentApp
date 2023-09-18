@@ -8,6 +8,7 @@ public class Account implements Comparable{
     int accountNumber;
     String owner;
     City city;
+    //Remove gender
     char gender;
     double balance;
     Date openDate;
@@ -18,6 +19,7 @@ public class Account implements Comparable{
         this.owner = owner;
         this.city = city;
         this.gender = gender;
+
 
         balance = 0.0;
         openDate = null; //System.currentDate()

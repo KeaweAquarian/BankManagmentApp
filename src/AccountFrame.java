@@ -103,8 +103,8 @@ public class AccountFrame extends JFrame {
 
 
         //Adding componets to panel
-          p1.add(accnNoLBL);
-          p1.add(accNoTXT);
+        p1.add(accnNoLBL);
+        p1.add(accNoTXT);
         p1.add(ownerTXT);
         p1.add(ownerLBL);
         p1.add(ownerTXT);
@@ -337,7 +337,6 @@ public class AccountFrame extends JFrame {
         AccountFrame accountFrame = new AccountFrame();
         accountFrame.setVisible(true);
         accountFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 
     }
 
