@@ -36,7 +36,7 @@ public class Account implements Comparable{
 
     public double setBalance(double balance) {
         this.balance = balance > 0.0 ? balance:0.0;
-        return balance;
+        return this.balance;
     }
 
     @Override

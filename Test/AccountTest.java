@@ -4,16 +4,16 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class AccountTest {
+    Account account = new Account("Terry", new City("New York", "New York"), 'm');
+
 
     @Test
-    public void setBalance() {
-        Account account = new Account("Terry", new City("New York", "New York"), 'm');
-        assertEquals(1.1, account.setBalance(1.1), 0.0);
-
+    public void testSetBalancePositiveValue() {
+        assertEquals(5.5, account.setBalance(5.5), 0.0);
     }
-
     @Test
-    public void testSetBalance() {
+    public void testSetBalanceNegativeValue() {
+        assertEquals(0.0, account.setBalance(-1.0), 0.0);
     }
 
     @Test
@@ -26,6 +26,7 @@ public class AccountTest {
 
     @Test
     public void deposit() {
+        assertEquals(5.5, account.setBalance(5.5), 0.0);
     }
 
     @Test
