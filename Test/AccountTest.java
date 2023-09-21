@@ -31,5 +31,13 @@ public class AccountTest {
 
     @Test
     public void withdraw() {
+        account.deposit(10.0);
+        assertEquals(5.0, account.withdraw(5.0), 0.0);
+    }
+
+    @Test
+    public void withdrawGreaterThanBalance() {
+        account.deposit(10.0);
+        assertEquals(0.0, account.withdraw(50.0), 0.0);
     }
 }
