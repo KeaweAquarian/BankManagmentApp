@@ -22,6 +22,7 @@ public class TransactionsTest {
 
     @Test
     public void getAcc() {
+        assertEquals(10,transactions.getAcc().accountNumber,0.0);
     }
 
     @Test
