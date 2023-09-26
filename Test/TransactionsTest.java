@@ -1,6 +1,7 @@
 import org.junit.Test;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import static org.junit.Assert.*;
 
@@ -27,13 +28,16 @@ public class TransactionsTest {
 
     @Test
     public void getDate() {
+        assertEquals(LocalDate.now(), transactions.getDate());
     }
 
     @Test
     public void getOperation() {
+        assertEquals('D', transactions.getOperation());
     }
 
     @Test
     public void getAmount() {
+        assertEquals(2.0, transactions.getAmount(), 0.0);
     }
 }
