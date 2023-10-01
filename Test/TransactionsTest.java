@@ -9,6 +9,7 @@ public class TransactionsTest {
     Transactions transactions = new Transactions(new Account("Terry", new City("New York", "New York"), 'm'), LocalDate.now(),'D', 2.0);
 //add differnet class
     //Build a new project.
+    //finish testing
     @Test
     public void compareToSameTransaction() {
         assertEquals(0,transactions.compareTo(transactions));
