@@ -65,6 +65,6 @@ public class Account implements Comparable{
             }
             return balance;
         }
-        return 0.0;
+        return balance;
     }
 }

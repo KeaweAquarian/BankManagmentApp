@@ -27,12 +27,14 @@ public class AccountTest {
     @Test
     public void deposit() {
         assertEquals(5.5, account.setBalance(5.5), 0.0);
+        assertEquals(0.0, account.setBalance(0.0), 0.0);
     }
 
     @Test
     public void withdraw() {
         account.deposit(10.0);
         assertEquals(5.0, account.withdraw(5.0), 0.0);
+        assertEquals(5.0, account.withdraw(0.0), 0.0);
     }
 
     @Test
