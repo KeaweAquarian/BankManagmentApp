@@ -35,6 +35,8 @@ public class AccountTest {
         account.deposit(10.0);
         assertEquals(5.0, account.withdraw(5.0), 0.0);
         assertEquals(5.0, account.withdraw(0.0), 0.0);
+        assertEquals(4, account.withdraw(1), 0.0);
+        assertEquals(3.5, account.withdraw(.5), 0.0);
     }
 
     @Test
